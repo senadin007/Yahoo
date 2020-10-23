@@ -63,3 +63,13 @@ C:\Users\User01\Desktop\Zadatak1\WebApp\bin\EntityFramework.dll
 C:\Users\User01\Desktop\Zadatak1\WebApp\bin\EntityFramework.SqlServer.dll
 C:\Users\User01\Desktop\Zadatak1\WebApp\bin\EntityFramework.xml
 C:\Users\User01\Desktop\Zadatak1\WebApp\bin\EntityFramework.SqlServer.xml
+C:\Users\User01\Desktop\Zadatak1\WebApp\obj\Debug\WebApp.Properties.Resources.resources
+C:\Users\User01\Desktop\Zadatak1\WebApp\obj\Debug\WebApp.csproj.GenerateResource.cache
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\CsvHelper.dll
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\CsvHelper.xml
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\User01\Desktop\Zadatak1\WebApp\bin\System.Threading.Tasks.Extensions.xml
