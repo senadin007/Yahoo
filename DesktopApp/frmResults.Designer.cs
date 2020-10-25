@@ -41,14 +41,14 @@
             this.dgResults.Location = new System.Drawing.Point(20, 60);
             this.dgResults.Name = "dgResults";
             this.dgResults.ReadOnly = true;
-            this.dgResults.Size = new System.Drawing.Size(755, 383);
+            this.dgResults.Size = new System.Drawing.Size(899, 429);
             this.dgResults.TabIndex = 0;
             // 
             // frmResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 463);
+            this.ClientSize = new System.Drawing.Size(939, 509);
             this.Controls.Add(this.dgResults);
             this.Name = "frmResults";
             this.Style = MetroFramework.MetroColorStyle.Purple;

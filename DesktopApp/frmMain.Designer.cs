@@ -32,6 +32,7 @@
             this.btnStart = new MetroFramework.Controls.MetroButton();
             this.btnShow = new MetroFramework.Controls.MetroButton();
             this.mCalendar = new System.Windows.Forms.MonthCalendar();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDatePicker
@@ -70,11 +71,21 @@
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 6;
             // 
+            // lblInfo
+            // 
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.Location = new System.Drawing.Point(26, 272);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(240, 18);
+            this.lblInfo.TabIndex = 7;
+            this.lblInfo.Text = "Data is downloading. Please wait...";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 372);
+            this.ClientSize = new System.Drawing.Size(507, 346);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnStart);
@@ -95,6 +106,7 @@
         private MetroFramework.Controls.MetroButton btnStart;
         private MetroFramework.Controls.MetroButton btnShow;
         private System.Windows.Forms.MonthCalendar mCalendar;
+        private System.Windows.Forms.Label lblInfo;
     }
 }
 

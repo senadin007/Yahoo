@@ -21,15 +21,17 @@ namespace DesktopApp
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-           
+            btnShow.Visible = false;
+            lblInfo.Visible = false;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            
-            Thread.Sleep(1000);
+            lblInfo.Visible = true;
+            btnShow.Visible = false;
             Start_Scraping();
             btnShow.Visible = true;
+            lblInfo.Visible = false;
         }
         void Start_Scraping()
         {
