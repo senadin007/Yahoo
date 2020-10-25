@@ -41,6 +41,7 @@ namespace DesktopApp
 
                 foreach (string ticker in Fields)
                 {
+                    HQCity = ""; HQState = ""; YearFounded = 0; Employees = 0; previousClose = 0; open = 0; marketCap = 0;
 
                     string yahooAddress = $"https://query1.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=assetProfile%2CsummaryDetail";
                     string historyAddress = $"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={unixTime1}&period2={unixTime2}&interval=1d";

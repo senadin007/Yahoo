@@ -60,3 +60,4 @@ C:\Users\User01\Desktop\Zadatak1\Yahoo\DesktopApp\obj\Debug\DesktopApp.applicati
 C:\Users\User01\Desktop\Zadatak1\Yahoo\DesktopApp\obj\Debug\DesktopApp.csproj.CopyComplete
 C:\Users\User01\Desktop\Zadatak1\Yahoo\DesktopApp\obj\Debug\DesktopApp.exe
 C:\Users\User01\Desktop\Zadatak1\Yahoo\DesktopApp\obj\Debug\DesktopApp.pdb
+C:\Users\User01\Desktop\Zadatak1\Yahoo\DesktopApp\obj\Debug\DesktopApp.csprojAssemblyReference.cache
