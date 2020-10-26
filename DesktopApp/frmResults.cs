@@ -23,11 +23,25 @@ namespace DesktopApp
 
         private void frmResults_Load(object sender, EventArgs e)
         {
-            string sql = "SELECT ISNULL(CompanyName,'') AS Company, ISNULL([Year],0) AS YearFounded, ISNULL(Employees,'') AS NumberOfEmployees, ISNULL(HQCity,'') AS City, ISNULL(HQState,'') AS State, ISNULL(PCP,0) AS PreviousClosePrice, ISNULL(OP,0) AS OpenPrice, ISNULL(MC,0) AS MarketCap   FROM YahooTable ORDER BY Symbol";
+            FillFirstTable();
+            FillSecondTable();
+        }
+
+        void FillFirstTable()
+        {
+            string sql = "SELECT ISNULL(CompanyName,'') AS Company, ISNULL([Year],0) AS YearFounded, ISNULL(Employees,'') AS NumberOfEmployees, ISNULL(HQCity,'') AS City, ISNULL(HQState,'') AS State, ISNULL(MC,0) AS MarketCap  FROM Companies ORDER BY Symbol";
             DataTable dt = new DataTable();
             SqlDataAdapter adap = new SqlDataAdapter(sql, con);
             adap.Fill(dt);
-            dgResults .DataSource = dt;
+            bsResultsC.DataSource = dt;
+        }
+        void FillSecondTable()
+        {
+            string sql = "SELECT FORMAT([Date],'dd-MM-yyyy') as Date, Symbol, ISNULL(PCP,0) AS PreviousClosePrice, ISNULL(OP,0) AS OpenPrice   FROM Positions ORDER BY Date";
+            DataTable dt = new DataTable();
+            SqlDataAdapter adap = new SqlDataAdapter(sql, con);
+            adap.Fill(dt);
+            bsResultsP.DataSource = dt;
         }
     }
 }
