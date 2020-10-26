@@ -207,10 +207,11 @@ namespace DesktopApp
             {
                 query = "INSERT INTO [dbo].[Positions] ([Symbol], [Date], [PCP], [OP]) VALUES (@Symbol, @Date, @PCP, @OP)";
             }
-                        
-
             cnn = new SqlConnection(con);
-            cnn.Open();
+            if (cnn.State != System.Data.ConnectionState.Open)
+            {
+                cnn.Open();
+            }
             cmd = new SqlCommand(query, cnn);
 
             cmd.Parameters.AddWithValue("@Symbol", _Symbol);
@@ -231,10 +232,12 @@ namespace DesktopApp
         public void Delete_Data()
         {
             cnn = new SqlConnection(con);
-            cnn.Open();
-            cmd = new SqlCommand("Truncate table YahooTable", cnn);
+            if (cnn.State != System.Data.ConnectionState.Open)
+            {
+                cnn.Open();
+            }
+            cmd = new SqlCommand("Truncate table Companies; Truncate table Positions;", cnn);
             cmd.ExecuteNonQuery();
-            cnn.Close();
         }
         //Metod for scraping FullCompanyName because the same is missing from profile information.
         void GetFullName(string symbol)
