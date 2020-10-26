@@ -37,7 +37,7 @@ namespace DesktopApp
         }
         void FillSecondTable()
         {
-            string sql = "SELECT FORMAT([Date],'dd-MM-yyyy') as Date, Symbol, ISNULL(PCP,0) AS PreviousClosePrice, ISNULL(OP,0) AS OpenPrice   FROM Positions ORDER BY Date";
+            string sql = "SELECT FORMAT([Date],'dd-MM-yyyy') as Date, Symbol, ISNULL(PCP,0) AS PreviousClosePrice, ISNULL(OP,0) AS OpenPrice   FROM Positions ORDER BY Date,Symbol";
             DataTable dt = new DataTable();
             SqlDataAdapter adap = new SqlDataAdapter(sql, con);
             adap.Fill(dt);

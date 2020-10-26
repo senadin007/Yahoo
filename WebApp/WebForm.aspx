@@ -105,7 +105,10 @@
                </div>
             <br />       
             <br />
-             <asp:GridView ID="dgData" runat="server" class="sec3">
+             <asp:GridView ID="dgDataC" runat="server" class="sec3">
+                </asp:GridView>
+            <br />
+            <asp:GridView ID="dgDataP" runat="server" class="sec3">
                 </asp:GridView>
           </div>
     </form>

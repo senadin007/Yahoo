@@ -23,7 +23,6 @@ namespace DesktopApp
 
         public void SaveData(DateTime Period)
         {
-            //Delete_Data();
             GetDataFromCSV(Period);
         }
 
@@ -39,7 +38,7 @@ namespace DesktopApp
                 long unixTime1 = ((DateTimeOffset)Period.Date.AddHours(12)).ToUnixTimeSeconds();
                 long unixTime2 = ((DateTimeOffset)Period.Date.AddHours(36)).ToUnixTimeSeconds();
 
-                if (DataInTable() != 0)
+                if (DataInTable("SELECT ISNULL(COUNT(ID),0) FROM Companies") != 0)
                 {
                     foreach (string ticker in Fields)
                     {
@@ -261,10 +260,9 @@ namespace DesktopApp
 
         }
 
-        private long DataInTable()
+        public long DataInTable(string query)
         {
             int countID = 0;
-            String query = "SELECT ISNULL(COUNT(ID),0) FROM Companies";
             try
             {
                 cnn = new SqlConnection(con);
@@ -275,7 +273,7 @@ namespace DesktopApp
                 cmd = new SqlCommand(query, cnn);
                 countID = (int)cmd.ExecuteScalar();
             }
-            catch(Exception ex)
+            catch
             {
                 countID = 0;
             }

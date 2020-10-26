@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DesktopApp.exe" size="83944">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DesktopApp.exe" size="84456">
       <assemblyIdentity name="DesktopApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uHXlQm6ajUTshyFK3CBSGkg80yxmZO+5+QmGdCXmTuo=</dsig:DigestValue>
+        <dsig:DigestValue>YC/7IzL6fH1DDO0jaAJErCXFQhGjEYXxT6Col5yEN3s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -24,7 +24,6 @@ namespace WebApp
               
         public void SaveData(DateTime Period)
         {
-            Delete_Data();
             GetDataFromCSV(Period);
         }
               
@@ -40,17 +39,36 @@ namespace WebApp
                 long unixTime1 = ((DateTimeOffset)Period.Date.AddHours(12)).ToUnixTimeSeconds();
                 long unixTime2 = ((DateTimeOffset)Period.Date.AddHours(36)).ToUnixTimeSeconds();
 
-                foreach (string ticker in Fields)
+                if (DataInTable("SELECT ISNULL(COUNT(ID),0) FROM Companies") != 0)
                 {
-                    HQCity = ""; HQState = ""; YearFounded = 0; Employees = 0; previousClose = 0; open = 0; marketCap = 0;
-                    string yahooAddress = $"https://query1.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=assetProfile%2CsummaryDetail";
-                    string historyAddress = $"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={unixTime1}&period2={unixTime2}&interval=1d";
+                    foreach (string ticker in Fields)
+                    {
+                        previousClose = 0; open = 0;
 
-                    Symbol = ticker;
-                    FillData(GetData(yahooAddress, 0), GetData(historyAddress, 1));
-                    GetFullName(Symbol);
-                    Insert_Data(Symbol, CompanyName, YearFounded, Employees, HQCity, HQState , Period, previousClose, open, marketCap);
+                        string historyAddress = $"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={unixTime1}&period2={unixTime2}&interval=1d";
+
+                        Symbol = ticker;
+                        FillData("", GetData(historyAddress, 1));
+                        Insert_Data(Symbol, "", 0, 0, "", "", Period, previousClose, open, 0, 2);
+                    }
                 }
+                else
+                {
+                    foreach (string ticker in Fields)
+                    {
+                        HQCity = ""; HQState = ""; YearFounded = 0; Employees = 0; previousClose = 0; open = 0; marketCap = 0;
+
+                        string yahooAddress = $"https://query1.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=assetProfile%2CsummaryDetail";
+                        string historyAddress = $"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={unixTime1}&period2={unixTime2}&interval=1d";
+
+                        Symbol = ticker;
+                        FillData(GetData(yahooAddress, 0), GetData(historyAddress, 1));
+                        GetFullName(Symbol);
+                        Insert_Data(Symbol, CompanyName, YearFounded, Employees, HQCity, HQState, Period, previousClose, open, marketCap, 1);
+                        Insert_Data(Symbol, CompanyName, YearFounded, Employees, HQCity, HQState, Period, previousClose, open, marketCap, 2);
+                    }
+                }
+
             }
         }
         //Geting stream from URI
@@ -88,30 +106,22 @@ namespace WebApp
         void FillData(string csvData, string csvDataHistory)
         {
             string csvLine;
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            var Items = jss.Deserialize<Example>(csvData);
-                  
-            HQCity = Items.quoteSummary.result[0].assetProfile.city ?? "";
-            HQState = Items.quoteSummary.result[0].assetProfile.state ?? "";
-            Employees = Items.quoteSummary.result[0].assetProfile.fullTimeEmployees;
 
-            int tempYear = 0;
-            if (Items.quoteSummary.result[0].assetProfile.longBusinessSummary != null)
+            if (csvData != "")
             {
-                string info = Items.quoteSummary.result[0].assetProfile.longBusinessSummary;
-                int lstindex = info.LastIndexOf("founded in ");
-                if (int.TryParse((info.Substring(lstindex + 11, 4)), out tempYear))
-                {
-                    YearFounded = tempYear;
-                }
-                else
-                {
-                    YearFounded = 0;
-                }
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                var Items = jss.Deserialize<Example>(csvData);
 
-                if (YearFounded == 0)
+                HQCity = Items.quoteSummary.result[0].assetProfile.city ?? "";
+                HQState = Items.quoteSummary.result[0].assetProfile.state ?? "";
+                Employees = Items.quoteSummary.result[0].assetProfile.fullTimeEmployees;
+
+                int tempYear = 0;
+                if (Items.quoteSummary.result[0].assetProfile.longBusinessSummary != null)
                 {
-                    if (int.TryParse(getNumber(getBetween("founded", info)), out tempYear))
+                    string info = Items.quoteSummary.result[0].assetProfile.longBusinessSummary;
+                    int lstindex = info.LastIndexOf("founded in ");
+                    if (int.TryParse((info.Substring(lstindex + 11, 4)), out tempYear))
                     {
                         YearFounded = tempYear;
                     }
@@ -119,12 +129,21 @@ namespace WebApp
                     {
                         YearFounded = 0;
                     }
+                    if (YearFounded == 0)
+                    {
+                        if (int.TryParse(getNumber(getBetween("founded", info)), out tempYear))
+                        {
+                            YearFounded = tempYear;
+                        }
+                        else
+                        {
+                            YearFounded = 0;
+                        }
+                    }
                 }
-
+                marketCap = Items.quoteSummary.result[0].summaryDetail.marketCap.raw;
             }
 
-            marketCap = Items.quoteSummary.result[0].summaryDetail.marketCap.raw ;
-            
             using (StringReader reader = new StringReader(csvDataHistory))
             {
                 while ((csvLine = reader.ReadLine()) != null)
@@ -143,7 +162,6 @@ namespace WebApp
                 }
             }
         }
-
         /*Returning string from inital defined word to the last word in text.
          It is used to get year founded in description.
         */
@@ -178,13 +196,22 @@ namespace WebApp
             return b;
         }
         //Inserting data in dbYahoo
-        public void Insert_Data(string _Symbol, string _Company, int _Year, Double _Employees, string _City, string _State, DateTime _Period, Double _PCP, Double _OP, Double _MC)
+        public void Insert_Data(string _Symbol, string _Company, int _Year, Double _Employees, string _City, string _State, DateTime _Period, Double _PCP, Double _OP, Double _MC, int tbl)
         {
-
-            String query = "INSERT INTO [dbo].[YahooTable] ([Symbol], [CompanyName], [Year], [Employees], [HqCity], [HqState], [Date], [PCP], [OP], [MC]) VALUES (@Symbol, @CompanyName, @Year, @Employees, @HqCity, @HqState, @Date, @PCP, @OP, @MC)";
-
+            String query = "";
+            if (tbl == 1)
+            {
+                query = "INSERT INTO [dbo].[Companies] ([Symbol], [CompanyName], [Year], [Employees], [HqCity], [HqState], [MC]) VALUES (@Symbol, @CompanyName, @Year, @Employees, @HqCity, @HqState, @MC)";
+            }
+            else if (tbl == 2)
+            {
+                query = "INSERT INTO [dbo].[Positions] ([Symbol], [Date], [PCP], [OP]) VALUES (@Symbol, @Date, @PCP, @OP)";
+            }
             cnn = new SqlConnection(con);
-            cnn.Open();
+            if (cnn.State != System.Data.ConnectionState.Open)
+            {
+                cnn.Open();
+            }
             cmd = new SqlCommand(query, cnn);
 
             cmd.Parameters.AddWithValue("@Symbol", _Symbol);
@@ -199,16 +226,17 @@ namespace WebApp
             cmd.Parameters.AddWithValue("@MC", _MC);
             cmd.ExecuteNonQuery();
             cnn.Close();
-
         }
-        // Deleting all data from table dbYahoo before inserting new data
+        // Deleting all data from tables
         public void Delete_Data()
         {
             cnn = new SqlConnection(con);
-            cnn.Open();
-            cmd = new SqlCommand("Truncate table YahooTable", cnn);
+            if (cnn.State != System.Data.ConnectionState.Open)
+            {
+                cnn.Open();
+            }
+            cmd = new SqlCommand("Truncate table Companies; Truncate table Positions;", cnn);
             cmd.ExecuteNonQuery();
-            cnn.Close();
         }
         //Metod for scraping FullCompanyName because the same is missing from profile information.
         void GetFullName(string symbol)
@@ -230,6 +258,26 @@ namespace WebApp
                 CompanyName = "";
             }
 
+        }
+
+        public long DataInTable(string query)
+        {
+            int countID = 0;
+            try
+            {
+                cnn = new SqlConnection(con);
+                if (cnn.State != System.Data.ConnectionState.Open)
+                {
+                    cnn.Open();
+                }
+                cmd = new SqlCommand(query, cnn);
+                countID = (int)cmd.ExecuteScalar();
+            }
+            catch
+            {
+                countID = 0;
+            }
+            return countID;
         }
     }
 }

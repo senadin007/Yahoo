@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgResultsC = new System.Windows.Forms.DataGridView();
-            this.dgResultsP = new System.Windows.Forms.DataGridView();
             this.bsResultsC = new System.Windows.Forms.BindingSource(this.components);
+            this.dgResultsP = new System.Windows.Forms.DataGridView();
             this.bsResultsP = new System.Windows.Forms.BindingSource(this.components);
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,8 +47,8 @@
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MarketCap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgResultsC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgResultsP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsResultsC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgResultsP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsResultsP)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,11 +68,13 @@
             this.dgResultsC.DataSource = this.bsResultsC;
             this.dgResultsC.Dock = System.Windows.Forms.DockStyle.Left;
             this.dgResultsC.Location = new System.Drawing.Point(27, 74);
-            this.dgResultsC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgResultsC.Margin = new System.Windows.Forms.Padding(4);
+            this.dgResultsC.MultiSelect = false;
             this.dgResultsC.Name = "dgResultsC";
             this.dgResultsC.ReadOnly = true;
             this.dgResultsC.RowHeadersVisible = false;
             this.dgResultsC.RowHeadersWidth = 51;
+            this.dgResultsC.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgResultsC.Size = new System.Drawing.Size(807, 527);
             this.dgResultsC.TabIndex = 0;
             // 
@@ -88,10 +93,12 @@
             this.dgResultsP.Dock = System.Windows.Forms.DockStyle.Right;
             this.dgResultsP.Location = new System.Drawing.Point(842, 74);
             this.dgResultsP.Margin = new System.Windows.Forms.Padding(4);
+            this.dgResultsP.MultiSelect = false;
             this.dgResultsP.Name = "dgResultsP";
             this.dgResultsP.ReadOnly = true;
             this.dgResultsP.RowHeadersVisible = false;
             this.dgResultsP.RowHeadersWidth = 51;
+            this.dgResultsP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgResultsP.Size = new System.Drawing.Size(530, 527);
             this.dgResultsP.TabIndex = 1;
             // 
@@ -117,6 +124,9 @@
             // 
             this.PreviousClosePrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.PreviousClosePrice.DataPropertyName = "PreviousClosePrice";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            this.PreviousClosePrice.DefaultCellStyle = dataGridViewCellStyle5;
             this.PreviousClosePrice.HeaderText = "Previous close price";
             this.PreviousClosePrice.MinimumWidth = 6;
             this.PreviousClosePrice.Name = "PreviousClosePrice";
@@ -126,6 +136,9 @@
             // 
             this.OpenPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.OpenPrice.DataPropertyName = "OpenPrice";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            this.OpenPrice.DefaultCellStyle = dataGridViewCellStyle6;
             this.OpenPrice.HeaderText = "Open price";
             this.OpenPrice.MinimumWidth = 6;
             this.OpenPrice.Name = "OpenPrice";
@@ -180,6 +193,9 @@
             // 
             this.MarketCap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.MarketCap.DataPropertyName = "MarketCap";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            this.MarketCap.DefaultCellStyle = dataGridViewCellStyle4;
             this.MarketCap.HeaderText = "Market cap";
             this.MarketCap.MinimumWidth = 6;
             this.MarketCap.Name = "MarketCap";
@@ -192,15 +208,15 @@
             this.ClientSize = new System.Drawing.Size(1399, 626);
             this.Controls.Add(this.dgResultsP);
             this.Controls.Add(this.dgResultsC);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmResults";
             this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
             this.Style = MetroFramework.MetroColorStyle.Purple;
             this.Text = "Results";
             this.Load += new System.EventHandler(this.frmResults_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgResultsC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgResultsP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsResultsC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgResultsP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsResultsP)).EndInit();
             this.ResumeLayout(false);
 
@@ -212,15 +228,15 @@
         private System.Windows.Forms.DataGridView dgResultsP;
         private System.Windows.Forms.BindingSource bsResultsC;
         private System.Windows.Forms.BindingSource bsResultsP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Symbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PreviousClosePrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OpenPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Company;
         private System.Windows.Forms.DataGridViewTextBoxColumn YearFounded;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfEmployees;
         private System.Windows.Forms.DataGridViewTextBoxColumn City;
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn MarketCap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Symbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PreviousClosePrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OpenPrice;
     }
 }
